@@ -39,28 +39,12 @@ pipeline {
 
         stage('Deploy Backend to EC2') {
             steps {
-                // This assumes Jenkins has SSH access to the backend EC2
-                // and the image is shared or pushed to a registry.
-                // For simplicity, if Jenkins is on the same machine or can SSH:
                 script {
-                    def remote = [:]
-                    remote.name = 'backend-server'
-                    remote.host = EC2_PUBLIC_IP
-                    remote.user = 'ubuntu'
-                    remote.allowAnyHosts = true
-                    
-                    // Note: You need to setup SSH credentials in Jenkins
-                    withCredentials([sshUserPrivateKey(credentialsId: 'ec2-ssh-key', keyFileVariable: 'identity')]) {
-                        remote.identityFile = identity
-                        
-                        // Copy the docker image or use a registry. 
-                        // Using a registry is better. For now, let's assume we push to ECR.
-                        // If not using registry, we can save and load (less efficient)
-                        sh "docker save ${DOCKER_IMAGE}:latest | ssh -i ${identity} ubuntu@${EC2_PUBLIC_IP} 'docker load'"
-                        
-                        // Restart the container
-                        sh "ssh -i ${identity} ubuntu@${EC2_PUBLIC_IP} 'docker stop homedine-api || true && docker rm homedine-api || true && docker run -d --name homedine-api -p 5000:5000 --env-file /home/ubuntu/.env ${DOCKER_IMAGE}:latest'"
-                    }
+                    // Since Jenkins is on the same machine as the backend, 
+                    // we don't need SSH. We just run docker commands directly.
+                    sh "docker stop homedine-api || true"
+                    sh "docker rm homedine-api || true"
+                    sh "docker run -d --name homedine-api -p 5000:5000 --env-file /home/ubuntu/.env ${DOCKER_IMAGE}:latest"
                 }
             }
         }
