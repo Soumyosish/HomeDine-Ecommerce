@@ -44,7 +44,7 @@ pipeline {
                     // we don't need SSH. We just run docker commands directly.
                     sh "docker stop homedine-api || true"
                     sh "docker rm homedine-api || true"
-                    sh "docker run -d --name homedine-api -p 5000:5000 --env-file /home/ubuntu/.env ${DOCKER_IMAGE}:latest"
+                    sh "docker run -d --name homedine-api -p 5000:5000 --env-file /var/lib/jenkins/config/.env ${DOCKER_IMAGE}:latest"
                 }
             }
         }
