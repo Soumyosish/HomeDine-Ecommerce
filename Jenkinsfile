@@ -24,8 +24,8 @@ pipeline {
         stage('Build Frontend') {
             steps {
                 dir('frontend') {
-                    sh 'npm install'
-                    sh 'npm run build'
+                    sh 'export NODE_OPTIONS="--max-old-space-size=512" && npm install --no-audit --no-fund'
+                    sh 'export NODE_OPTIONS="--max-old-space-size=512" && npm run build'
                 }
             }
         }
