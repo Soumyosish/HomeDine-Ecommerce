@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+  
+  /* Organic Luxury Palette */
+  --color-brand-forest: #2D3A27;
+  --color-brand-gold: #D4AF37;
+  --color-brand-pearl: #FDFBF7;
+  --color-brand-stone: #E9E5D9;
+  --color-brand-accent: #C5A358;
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply antialiased text-gray-900 bg-brand-pearl selection:bg-brand-stone selection:text-brand-forest;
+}
+
+/* Custom Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-brand-pearl;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-brand-stone rounded-full border-2 border-brand-pearl;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-300;
+}
+
+/* Premium Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Grainy Texture for Glassmorphism */
+.grainy::before {
+  content: "";
+  @apply fixed inset-0 z-9999 pointer-events-none opacity-[0.03];
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  filter: contrast(150%) brightness(100%);
+  animation: grain 8s steps(10) infinite;
+}
+
+/* Smooth Global Transitions */
+* {
+  @apply transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)];
+}
+
+/* Premium Reveal Link */
+.nav-link {
+  @apply relative overflow-hidden;
+}
+
+.nav-link::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-full h-px bg-brand-forest scale-x-0 origin-right transition-transform duration-500 ease-out;
+}
+
+.nav-link:hover::after {
+  @apply scale-x-100 origin-left;
+}
+
+/* Luxury Glass Cards */
+.glass-card {
+  @apply bg-white/40 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] hover:shadow-[0_20px_48px_0_rgba(31,38,135,0.1)] transition-all duration-700;
+}
+
+.glass-nav {
+  @apply bg-brand-pearl/80 backdrop-blur-lg border-b border-brand-stone/50 sticky top-0 z-50;
+}
