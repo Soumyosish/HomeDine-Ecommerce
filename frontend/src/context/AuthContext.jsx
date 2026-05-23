@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const { data } = await API.post("/users/login", { email, password });
+      const { data } = await API.post("users/login", { email, password });
       setUser(data);
       return { success: true };
     } catch (error) {
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password) => {
     try {
-      const { data } = await API.post("/users", { name, email, password });
+      const { data } = await API.post("users", { name, email, password });
       setUser(data);
       return { success: true };
     } catch (error) {
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
 
   const updateUser = async (payload) => {
     try {
-      const { data } = await API.put("/users/profile", payload);
+      const { data } = await API.put("users/profile", payload);
       setUser(data);
       return { success: true, data };
     } catch (error) {
