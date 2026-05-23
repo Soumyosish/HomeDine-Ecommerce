@@ -15,18 +15,15 @@ pipeline {
     }
 
     stages {
-        stage('Build Frontend') {
-            steps {
-                dir('frontend') {
-                    // Use npm ci instead of install for faster, cleaner builds
-                    sh 'export NODE_OPTIONS="--max-old-space-size=512" && npm ci --no-audit --no-fund'
-                    sh 'export NODE_OPTIONS="--max-old-space-size=512" && npm run build'
-                }
-            }
-        }
-
         stage('Deploy Frontend to S3') {
             steps {
+                dir('frontend') {
+                    // We build locally on Jenkins only the necessary parts or sync
+                    // Since GitHub built it, we can actually just sync if we have the files.
+                    // For now, let's keep it simple: Jenkins will only build the Backend.
+                    sh 'npm install --no-audit --no-fund'
+                    sh 'npm run build'
+                }
                 sh "aws s3 sync frontend/dist/ s3://${S3_BUCKET} --delete"
                 sh "aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DIST_ID} --paths '/*'"
             }
