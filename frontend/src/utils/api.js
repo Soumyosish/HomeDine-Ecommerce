@@ -3,7 +3,7 @@ import axios from "axios";
 const getBaseURL = () => {
   // If explicitly provided via env (e.g. for local development or specific builds)
   if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
+    return import.meta.env.VITE_API_URL || "http://54.236.34.160:5000/api";
   }
 
   // Fallback for Docker environment (assuming Nginx proxy at /api)
