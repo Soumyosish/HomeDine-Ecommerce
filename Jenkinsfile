@@ -5,12 +5,12 @@ pipeline {
         // AWS Credentials should be configured in Jenkins Credentials
         AWS_ACCESS_KEY_ID     = credentials('aws-access-key-id')
         AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
-        AWS_DEFAULT_REGION    = 'us-east-1' // Change to your region
+        AWS_DEFAULT_REGION    = 'us-east-1' 
         
-        S3_BUCKET             = 'homedine-frontend-unique-name' // Change to your bucket name
-        CLOUDFRONT_DIST_ID    = 'D3CZZAQNPSJLX6' // Your CloudFront ID
+        S3_BUCKET             = 'homedine-frontend-bucket-047399020926-us-east-1-an' // REPLACE THIS with your bucket name
+        CLOUDFRONT_DIST_ID    = 'D3CZZAQNPSJLX6' 
         
-        EC2_PUBLIC_IP         = 'your-ec2-ip' // Your Backend EC2 IP
+        EC2_PUBLIC_IP         = '54.236.34.160' 
         DOCKER_IMAGE          = 'homedine-backend'
     }
 
