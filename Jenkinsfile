@@ -15,16 +15,11 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Build Frontend') {
             steps {
                 dir('frontend') {
-                    sh 'export NODE_OPTIONS="--max-old-space-size=512" && npm install --no-audit --no-fund'
+                    // Use npm ci instead of install for faster, cleaner builds
+                    sh 'export NODE_OPTIONS="--max-old-space-size=512" && npm ci --no-audit --no-fund'
                     sh 'export NODE_OPTIONS="--max-old-space-size=512" && npm run build'
                 }
             }
