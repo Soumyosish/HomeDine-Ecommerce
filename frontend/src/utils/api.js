@@ -3,18 +3,17 @@ import axios from "axios";
 const getBaseURL = () => {
   // If explicitly provided via env (e.g. for local development or specific builds)
   if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL || "http://54.236.34.160:5000/api";
+    return import.meta.env.VITE_API_URL;
   }
 
-  // Fallback for Docker environment (assuming Nginx proxy at /api)
-  if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-    // If we are on localhost, we prefer using the same host with /api
-    // This works perfectly with the Nginx proxy in docker-compose
+  // Fallback for Docker environment or CloudFront Proxy
+  // If we are NOT on localhost, we use /api to let CloudFront handle the proxy
+  if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
     return "/api";
   }
 
-  // Fallback for AWS or other environments
-  return import.meta.env.VITE_API_URL_AWS || "http://localhost:5000/api";
+  // Fallback for local development
+  return "http://localhost:5000/api";
 };
 
 const rawBaseURL = getBaseURL();
