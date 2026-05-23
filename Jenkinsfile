@@ -8,7 +8,7 @@ pipeline {
         AWS_DEFAULT_REGION    = 'us-east-1' 
         
         S3_BUCKET             = 'homedine-frontend-bucket-047399020926-us-east-1-an' // REPLACE THIS with your bucket name
-        CLOUDFRONT_DIST_ID    = 'D3CZZAQNPSJLX6' 
+        CLOUDFRONT_DIST_ID    = 'EB4MXBEK1J7N2' 
         
         EC2_PUBLIC_IP         = '54.236.34.160' 
         DOCKER_IMAGE          = 'homedine-backend'
